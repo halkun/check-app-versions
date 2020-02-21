@@ -23,6 +23,11 @@ def main():
     vc_ver = scrape_app_version(vc_link, vc_ver_xpath)
     print("VC Redist Online: {}".format(vc_ver))
 
+    audacity_link = 'https://www.fosshub.com/Audacity.html'
+    audacity_xpath = '//dd[@itemprop="softwareVersion"]/text()'
+    audacity_ver = scrape_app_version(audacity_link, audacity_xpath)
+    print("Audacity Online: {}".format(audacity_ver))
+
 
 if __name__ == '__main__':
     main()
