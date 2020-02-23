@@ -15,7 +15,7 @@ def seven_zip_check():
     zip_link = "https://www.7-zip.org/download.html"
     zip_ver_xpath = '//tr/td[2]/p[1]/b/text()'
     zip_ver_list = scrape_app_version(zip_link, zip_ver_xpath)
-    zip_ver = str(zip_ver_list[0]).split(' ')[2]
+    zip_ver = zip_ver_list[0].split(' ')[2]
 
     print("7zip online: {}".format(zip_ver))
 
@@ -23,7 +23,7 @@ def vc_check():
     vc_link = 'https://github.com/abbodi1406/vcredist/releases'
     vc_ver_xpath = '//div[@class="f1 flex-auto min-width-0 text-normal"]/a/text()'
     vc_ver_list = scrape_app_version(vc_link, vc_ver_xpath)
-    vc_ver = str(vc_ver_list[0])[1:]
+    vc_ver = vc_ver_list[0][1:]
 
     print("VC Redist online: {}".format(vc_ver))
 
@@ -35,10 +35,19 @@ def audacity_check():
 
     print("Audacity online: {}".format(audacity_ver))
 
+def calibre_check():
+    calibre_link = 'https://calibre-ebook.com/download_windows'
+    calibre_xpath = '//div[@id="download_block"]/div/text()'
+    calibre_ver_list = scrape_app_version(calibre_link, calibre_xpath)
+    calibre_ver = calibre_ver_list[1].split(' ')[1]
+
+    print("Calibre online: {}".format(calibre_ver))
+
 def main():
     seven_zip_check()
     vc_check()
     audacity_check()
+    calibre_check()
 
 if __name__ == '__main__':
     main()
