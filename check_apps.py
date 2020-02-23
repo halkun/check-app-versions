@@ -43,11 +43,20 @@ def calibre_check():
 
     print("Calibre online: {}".format(calibre_ver))
 
+def cmder_check():
+    cmder_link = 'https://github.com/cmderdev/cmder/releases'
+    cmder_ver_xpath = '//div[@class="f1 flex-auto min-width-0 text-normal"]/a/text()'
+    cmder_ver_list = scrape_app_version(cmder_link, cmder_ver_xpath)
+    cmder_ver = cmder_ver_list[0][1:]
+
+    print("cmder online: {}".format(cmder_ver))
+
 def main():
     seven_zip_check()
     vc_check()
     audacity_check()
     calibre_check()
+    cmder_check()
 
 if __name__ == '__main__':
     main()
