@@ -67,6 +67,14 @@ def crystaldiskmark_check():
 
     print("CrystalDiskInfo: {}".format(crystaldiskinfo_ver))
 
+def dropbox_check():
+    dropbox_link = 'https://en.wikipedia.org/wiki/Dropbox_(service)'
+    dropbox_ver_xpath = '//table[@class="infobox vevent"]/tbody/tr/td//text()'
+    dropbox_ver_list = scrape_app_version(dropbox_link, dropbox_ver_xpath)
+    dropbox_ver = dropbox_ver_list[7].split(' ')[0]
+
+    print("Dropbox: {}".format(dropbox_ver))
+
 def equalizer_apo_check():
     equalizer_apo_link = 'https://sourceforge.net/projects/equalizerapo/files'
     equalizer_apo_ver_xpath = '//tr[@class="folder "]/th/a/span/text()'
@@ -243,6 +251,7 @@ def main():
     cmder_check()
     crystaldiskinfo_check()
     crystaldiskmark_check()
+    dropbox_check()
     equalizer_apo_check()
     peace_equalizer_check()
     search_everything_check()
