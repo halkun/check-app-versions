@@ -83,6 +83,14 @@ def equalizer_apo_check():
 
     print("EqualizerAPO: {}".format(equalizer_apo_ver))
 
+def firefox_check():
+    firefox_link = 'https://en.wikipedia.org/wiki/Firefox'
+    firefox_ver_xpath = '//table[@class="infobox vevent"]/tbody/tr/td//text()'
+    firefox_ver_list = scrape_app_version(firefox_link, firefox_ver_xpath)
+    firefox_ver = firefox_ver_list[21].split(' ')[0]
+
+    print("Firefox: {}".format(firefox_ver))
+
 def peace_equalizer_check():
     peace_equalizer_link = 'https://sourceforge.net/projects/peace-equalizer-apo-extension/files'
     peace_equalizer_ver_xpath = '//table[@id="files_list"]/tbody/tr[7]/td[1]/abbr/text()'
@@ -154,6 +162,14 @@ def hwinfo_check():
     hwinfo_ver = hwinfo_ver_list[0].split(' ')[-1]
 
     print("HWInfo: {}".format(hwinfo_ver))
+
+def itunes_check():
+    itunes_link = 'https://en.wikipedia.org/wiki/ITunes'
+    itunes_ver_xpath = '//table[@class="infobox vevent"]/tbody/tr/td//text()'
+    itunes_ver_list = scrape_app_version(itunes_link, itunes_ver_xpath)
+    itunes_ver = itunes_ver_list[8].split(' ')[0].strip()
+
+    print("iTunes: {}".format(itunes_ver))
 
 def klitecodec_check():
     klitecodec_link = 'https://codecguide.com/download_k-lite_codec_pack_standard.htm'
@@ -244,8 +260,8 @@ def java_check():
     print("Java: {}".format(java_ver))
 
 def main():
-    seven_zip_check()
     vc_check()
+    seven_zip_check()
     audacity_check()
     calibre_check()
     cmder_check()
@@ -258,19 +274,21 @@ def main():
     exiftool_check()
     faststone_check()
     ffmpeg_check()
+    firefox_check()
     git_check()
     greenshot_check()
     hashtab_check()
     hwinfo_check()
+    itunes_check()
     klitecodec_check()
     mkvtoolnix_check()
     obs_check()
     open_shell_check()
-    python_check()
-    rufus_check()
     sublime_check()
     visual_studio_code_check()
     winscp_check()
+    python_check()
+    rufus_check()
     g_music_desktop_check()
     java_check()
 
