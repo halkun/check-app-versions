@@ -123,6 +123,118 @@ def git_check():
 
     print("Git: {}".format(git_ver))
 
+def greenshot_check():
+    greenshot_link = 'https://getgreenshot.org/downloads'
+    greenshot_ver_xpath = '//div[2]/div[1]/div[1]/text()'
+    greenshot_ver_list = scrape_app_version(greenshot_link, greenshot_ver_xpath)
+    greenshot_ver = greenshot_ver_list[2].strip().split('-')[-1]
+
+    print("Greenshot: {}".format(greenshot_ver))
+
+def hashtab_check():
+    hashtab_link = 'http://implbits.com/products/hashtab'
+    hashtab_ver_xpath = '//a[@id="btn_download_now"]'
+    hashtab_ver_list = scrape_app_version(hashtab_link, hashtab_ver_xpath)
+    hashtab_ver = hashtab_ver_list[0].get("href").split('_')[1][1:]
+
+    print("Hashtab: {}".format(hashtab_ver))
+
+def hwinfo_check():
+    hwinfo_link = 'https://www.hwinfo.com/download'
+    hwinfo_ver_xpath = '//sub/text()'
+    hwinfo_ver_list = scrape_app_version(hwinfo_link, hwinfo_ver_xpath)
+    hwinfo_ver = hwinfo_ver_list[0].split(' ')[-1]
+
+    print("HWInfo: {}".format(hwinfo_ver))
+
+def klitecodec_check():
+    klitecodec_link = 'https://codecguide.com/download_k-lite_codec_pack_standard.htm'
+    klitecodec_ver_xpath = '//h4/text()'
+    klitecodec_ver_list = scrape_app_version(klitecodec_link, klitecodec_ver_xpath)
+    klitecodec_ver = klitecodec_ver_list[0].split(' ')[1]
+
+    print("K-Lite Codec: {}".format(klitecodec_ver))
+
+def mkvtoolnix_check():
+    mkvtoolnix_link = 'https://www.fosshub.com/MKVToolNix.html'
+    mkvtoolnix_ver_xpath = '//dd[@itemprop="softwareVersion"]/text()'
+    mkvtoolnix_ver_list = scrape_app_version(mkvtoolnix_link, mkvtoolnix_ver_xpath)
+    mkvtoolnix_ver = mkvtoolnix_ver_list[0]
+
+    print("MKVToolnix: {}".format(mkvtoolnix_ver))
+
+def obs_check():
+    obs_link = 'https://obsproject.com/download'
+    obs_ver_xpath = '//span[@class="dl_ver"]/text()'
+    obs_ver_list = scrape_app_version(obs_link, obs_ver_xpath)
+    obs_ver = obs_ver_list[0].split(' ')[-1]
+
+    print("OBS: {}".format(obs_ver))
+
+def open_shell_check():
+    open_shell_link = 'https://github.com/Open-Shell/Open-Shell-Menu/releases'
+    open_shell_ver_xpath = '//div[@class="f1 flex-auto min-width-0 text-normal"]/a/text()'
+    open_shell_ver_list = scrape_app_version(open_shell_link, open_shell_ver_xpath)
+    open_shell_ver = open_shell_ver_list[0]
+
+    print("Open Shell: {}".format(open_shell_ver))
+
+def python_check():
+    python_link = 'https://www.python.org/downloads'
+    python_ver_xpath = '//a[@class="button"]/text()'
+    python_ver_list = scrape_app_version(python_link, python_ver_xpath)
+    python_ver = python_ver_list[0].split(' ')[-1]
+
+    print("Python: {}".format(python_ver))
+
+def rufus_check():
+    rufus_link = 'https://github.com/pbatard/rufus/releases/latest'
+    rufus_ver_xpath = '//div[@class="f1 flex-auto min-width-0 text-normal"]/a/text()'
+    rufus_ver_list = scrape_app_version(rufus_link, rufus_ver_xpath)
+    rufus_ver = rufus_ver_list[0].split(' ')[1]
+
+    print("Rufus: {}".format(rufus_ver))
+
+def sublime_check():
+    sublime_link = 'https://www.sublimetext.com/3dev'
+    sublime_ver_xpath = '//p[@class="latest"]/text()'
+    sublime_ver_list = scrape_app_version(sublime_link, sublime_ver_xpath)
+    sublime_ver = sublime_ver_list[0].split(' ')[-1]
+
+    print("Sublime Text: {}".format(sublime_ver))
+
+def visual_studio_code_check():
+    visual_studio_code_link = 'https://code.visualstudio.com/updates'
+    visual_studio_code_ver_xpath = '//div[@class="col-sm-9 col-md-8 body"]/h1/text()'
+    visual_studio_code_ver_list = scrape_app_version(visual_studio_code_link, visual_studio_code_ver_xpath)
+    visual_studio_code_ver = visual_studio_code_ver_list[0].split(' ')[-1][0:-1]
+
+    print("Visual Studio Code: {}".format(visual_studio_code_ver))
+
+def winscp_check():
+    winscp_link = 'https://winscp.net/eng/download.php'
+    winscp_ver_xpath = '//a[@class="btn btn-primary btn-lg"]/text()'
+    winscp_ver_list = scrape_app_version(winscp_link, winscp_ver_xpath)
+    winscp_ver = winscp_ver_list[1].split(' ')[1]
+
+    print("WinSCP: {}".format(winscp_ver))
+
+def g_music_desktop_check():
+    g_music_desktop_link = 'https://github.com/MarshallOfSound/Google-Play-Music-Desktop-Player-UNOFFICIAL-/releases'
+    g_music_desktop_ver_xpath = '//div[@class="f1 flex-auto min-width-0 text-normal"]/a/text()'
+    g_music_desktop_ver_list = scrape_app_version(g_music_desktop_link, g_music_desktop_ver_xpath)
+    g_music_desktop_ver = g_music_desktop_ver_list[0].split(' ')[-1]
+
+    print("Google Play Music Desktop: {}".format(g_music_desktop_ver))
+
+def java_check():
+    java_link = 'https://www.java.com/en/download/manual.jsp'
+    java_ver_xpath = '//h4[@class="sub"]/text()'
+    java_ver_list = scrape_app_version(java_link, java_ver_xpath)
+    java_ver = ' '.join(java_ver_list[0].split(' ')[1:])
+
+    print("Java: {}".format(java_ver))
+
 def main():
     seven_zip_check()
     vc_check()
@@ -138,6 +250,20 @@ def main():
     faststone_check()
     ffmpeg_check()
     git_check()
+    greenshot_check()
+    hashtab_check()
+    hwinfo_check()
+    klitecodec_check()
+    mkvtoolnix_check()
+    obs_check()
+    open_shell_check()
+    python_check()
+    rufus_check()
+    sublime_check()
+    visual_studio_code_check()
+    winscp_check()
+    g_music_desktop_check()
+    java_check()
 
 if __name__ == '__main__':
     main()
