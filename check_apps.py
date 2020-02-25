@@ -1,4 +1,5 @@
 import lxml.html
+import openpyxl
 import requests
 
 
@@ -65,7 +66,7 @@ def crystaldiskmark_check():
     crystaldiskinfo_ver_list = scrape_app_version(crystaldiskinfo_link, crystaldiskinfo_ver_xpath)
     crystaldiskinfo_ver = crystaldiskinfo_ver_list[0].split(' ')[3]
 
-    print("CrystalDiskInfo: {}".format(crystaldiskinfo_ver))
+    print("CrystalDiskMark: {}".format(crystaldiskinfo_ver))
 
 def dropbox_check():
     dropbox_link = 'https://en.wikipedia.org/wiki/Dropbox_(service)'
@@ -259,38 +260,37 @@ def java_check():
 
     print("Java: {}".format(java_ver))
 
+def load_apps_info():
+    apps_wb = openpyxl.load_workbook('./apps_info.xlsx')
+    apps_sheet = apps_wb['Sheet1']
+    apps_dict = {}
+
+    max_row_plus = apps_sheet.max_row + 1
+
+    for row in range(2, max_row_plus):
+        app_var_cell = 'A' + str(row)
+        app_name_cell = 'B' + str(row)
+        app_local_ver_cell = 'C' + str(row)
+        app_link_cell = 'D' + str(row)
+        app_ver_xpath_cell = 'E' + str(row)
+
+        temp_dict = {
+            apps_sheet[app_var_cell].value: {
+                apps_sheet['B1'].value: apps_sheet[app_name_cell].value,
+                apps_sheet['C1'].value: apps_sheet[app_local_ver_cell].value,
+                apps_sheet['D1'].value: apps_sheet[app_link_cell].value,
+                apps_sheet['E1'].value: apps_sheet[app_ver_xpath_cell].value
+            }
+        }
+
+        apps_dict.update(temp_dict)
+
+    print(apps_dict)
+
+    return apps_dict
+
 def main():
-    vc_check()
-    seven_zip_check()
-    audacity_check()
-    calibre_check()
-    cmder_check()
-    crystaldiskinfo_check()
-    crystaldiskmark_check()
-    dropbox_check()
-    equalizer_apo_check()
-    peace_equalizer_check()
-    search_everything_check()
-    exiftool_check()
-    faststone_check()
-    ffmpeg_check()
-    firefox_check()
-    git_check()
-    greenshot_check()
-    hashtab_check()
-    hwinfo_check()
-    itunes_check()
-    klitecodec_check()
-    mkvtoolnix_check()
-    obs_check()
-    open_shell_check()
-    sublime_check()
-    visual_studio_code_check()
-    winscp_check()
-    python_check()
-    rufus_check()
-    g_music_desktop_check()
-    java_check()
+    load_apps_info()
 
 if __name__ == '__main__':
     main()
