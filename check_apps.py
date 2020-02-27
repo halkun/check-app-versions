@@ -1,5 +1,6 @@
 import lxml.html
 import openpyxl
+import os
 import requests
 
 
@@ -43,6 +44,10 @@ def load_apps_info():
 
     return apps_data
 
+def get_app(download_link):
+    os.system("start \"\" {}".format(download_link))
+    input("wait...")
+
 # check all apps to see for new updates
 def check_apps_version():
     apps_dict = load_apps_info()
@@ -50,7 +55,9 @@ def check_apps_version():
 
     # specific syntax to capture the version string from different website
     for key in apps_dict:
-        scrape_ver_list = scrape_app_version(apps_dict[key]['app_link'], apps_dict[key]['app_ver_xpath'])
+        app_link = apps_dict[key]['app_link']
+        app_ver_xpath = apps_dict[key]['app_ver_xpath']
+        scrape_ver_list = scrape_app_version(app_link, app_ver_xpath)
         if key == 'visual_c':
             app_ver = scrape_ver_list[0][1:]
         elif key == 'seven_zip':
@@ -122,6 +129,7 @@ def check_apps_version():
         # check if there is a new app version
         if app_ver != apps_dict[key]['app_local_version']:
             print("{} is outdated! There is a new version: {}".format(apps_dict[key]['app_name'], app_ver))
+            get_app(app_link)
 
 def main():
     check_apps_version()
