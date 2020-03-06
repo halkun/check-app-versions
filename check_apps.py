@@ -23,38 +23,50 @@ def load_apps_info():
     max_row_plus = apps_sheet.max_row + 1
 
     for row in range(2, max_row_plus):
-        app_var_cell = 'A' + str(row)
-        app_name_cell = 'B' + str(row)
-        app_local_ver_cell = 'C' + str(row)
-        app_link_cell = 'D' + str(row)
-        app_ver_xpath_cell = 'E' + str(row)
+        str_row = str(row)
+        app_var_cell = 'A' + str_row
+        app_name_cell = 'B' + str_row
+        app_local_ver_cell = 'C' + str_row
+        app_link_cell = 'D' + str_row
+        app_ver_xpath_cell = 'E' + str_row
 
         temp_dict = {
             apps_sheet[app_var_cell].value: {
                 apps_sheet['B1'].value: apps_sheet[app_name_cell].value,
                 apps_sheet['C1'].value: apps_sheet[app_local_ver_cell].value,
                 apps_sheet['D1'].value: apps_sheet[app_link_cell].value,
-                apps_sheet['E1'].value: apps_sheet[app_ver_xpath_cell].value
+                apps_sheet['E1'].value: apps_sheet[app_ver_xpath_cell].value,
+                'row': str_row
             }
         }
 
         apps_data.update(temp_dict)
 
-    # print(apps_data['visual_c']['app_name'])
+    # print(apps_data)
+    # print(apps_data['visual_c']['row'])
 
     return apps_data
 
-def get_app(download_link):
-    os.system("start \"\" {}".format(download_link))
-    input("wait...")
+# save new version into current file
+def update_apps_info(new_app_ver_dict):
+    apps_wb = openpyxl.load_workbook('./apps_info.xlsx')
+    apps_sheet = apps_wb['Sheet1']
+
+    for app in new_app_ver_dict:
+        row = new_app_ver_dict[app]['cell_row']
+        app_ver_cell = 'C' + row
+        apps_sheet[app_ver_cell].value = new_app_ver_dict[app]['app_new_ver']
+
+    apps_wb.save('apps_info.xlsx')
 
 # check all apps to see for new updates
 def check_apps_version():
     apps_dict = load_apps_info()
-    # print(apps_dict)
+    new_ver_dict = {}
 
     # specific syntax to capture the version string from different website
     for key in apps_dict:
+        app_row = apps_dict[key]['row']
         app_link = apps_dict[key]['app_link']
         app_ver_xpath = apps_dict[key]['app_ver_xpath']
         scrape_ver_list = scrape_app_version(app_link, app_ver_xpath)
@@ -129,7 +141,20 @@ def check_apps_version():
         # check if there is a new app version
         if app_ver != apps_dict[key]['app_local_version']:
             print("{} is outdated! There is a new version: {}".format(apps_dict[key]['app_name'], app_ver))
-            get_app(app_link)
+            os.system("start \"\" {}".format(app_link))
+
+            temp_dict = {
+                apps_dict[key]['app_name']: {
+                    'cell_row': app_row,
+                    'app_new_ver': app_ver
+                }
+            }
+
+            new_ver_dict.update(temp_dict)
+
+    # only update excel file if there's a new app update
+    if temp_dict:
+        update_apps_info(new_ver_dict)
 
 def main():
     check_apps_version()
