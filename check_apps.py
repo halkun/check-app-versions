@@ -4,7 +4,7 @@ import os
 import requests
 
 
-# extract raw version data using the website's html xpath
+# extract raw version data with html xpath
 def scrape_app_version(app_link, ver_xpath):
     my_headers = {"User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:73.0) Gecko/20100101 Firefox/73.0"}
 
@@ -14,7 +14,7 @@ def scrape_app_version(app_link, ver_xpath):
 
     return app_version
 
-# import local copy with apps information
+# import local apps database
 def load_apps_info():
     apps_wb = openpyxl.load_workbook('./apps_info.xlsx')
     apps_sheet = apps_wb['Sheet1']
@@ -42,12 +42,9 @@ def load_apps_info():
 
         apps_data.update(temp_dict)
 
-    # print(apps_data)
-    # print(apps_data['visual_c']['row'])
-
     return apps_data
 
-# save new version into current file
+# save new info into database
 def update_apps_info(new_app_ver_dict):
     apps_wb = openpyxl.load_workbook('./apps_info.xlsx')
     apps_sheet = apps_wb['Sheet1']
@@ -59,7 +56,7 @@ def update_apps_info(new_app_ver_dict):
 
     apps_wb.save('apps_info.xlsx')
 
-# check all apps to see for new updates
+# check apps for new updates
 def check_apps_version():
     apps_dict = load_apps_info()
     new_ver_dict = {}
@@ -135,8 +132,6 @@ def check_apps_version():
         else:
             print("Something went wrong...")
             break
-
-        # print("{}: {}".format(apps_dict[key]['app_name'], app_ver))
 
         # check if there is a new app version
         if app_ver != apps_dict[key]['app_local_version']:
