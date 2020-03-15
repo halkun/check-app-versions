@@ -60,9 +60,11 @@ def update_apps_info(new_app_ver_dict):
 def check_apps_version():
     apps_dict = load_apps_info()
     new_ver_dict = {}
+    temp_dict = {}
 
     # specific syntax to capture the version string from different website
     for key in apps_dict:
+        app_name = apps_dict[key]['app_name']
         app_row = apps_dict[key]['row']
         app_link = apps_dict[key]['app_link']
         app_ver_xpath = apps_dict[key]['app_ver_xpath']
@@ -135,17 +137,19 @@ def check_apps_version():
 
         # check if there is a new app version
         if app_ver != apps_dict[key]['app_local_version']:
-            print("{} is outdated! There is a new version: {}".format(apps_dict[key]['app_name'], app_ver))
+            print("{} is outdated! There is a new version: {}".format(app_name, app_ver))
             os.system("start \"\" {}".format(app_link))
 
             temp_dict = {
-                apps_dict[key]['app_name']: {
+                app_name: {
                     'cell_row': app_row,
                     'app_new_ver': app_ver
                 }
             }
 
             new_ver_dict.update(temp_dict)
+        else:
+            print("No update for {}...".format(app_name))
 
     # only update excel file if there's a new app update
     if temp_dict:
