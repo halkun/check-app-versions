@@ -6,7 +6,7 @@ import requests
 
 # extract raw version data with html xpath
 def scrape_app_version(app_link, ver_xpath):
-    my_headers = {"User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:73.0) Gecko/20100101 Firefox/73.0"}
+    my_headers = {"User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:75.0) Gecko/20100101 Firefox/75.0"}
 
     page = requests.get(app_link, headers=my_headers)
     tree = lxml.html.fromstring(page.content)
