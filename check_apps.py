@@ -5,10 +5,10 @@ import requests
 
 
 # extract raw version data with html xpath
-def scrape_app_version(app_link, ver_xpath):
+def scrape_app_version(app_info_link, ver_xpath):
     my_headers = {"User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:75.0) Gecko/20100101 Firefox/75.0"}
 
-    page = requests.get(app_link, headers=my_headers)
+    page = requests.get(app_info_link, headers=my_headers)
     tree = lxml.html.fromstring(page.content)
     app_version = tree.xpath(ver_xpath)
 
@@ -27,15 +27,17 @@ def load_apps_info():
         app_var_cell = 'A' + str_row
         app_name_cell = 'B' + str_row
         app_local_ver_cell = 'C' + str_row
-        app_link_cell = 'D' + str_row
-        app_ver_xpath_cell = 'E' + str_row
+        app_info_link_cell = 'D' + str_row
+        app_dl_link_cell = 'E' + str_row
+        app_ver_xpath_cell = 'F' + str_row
 
         temp_dict = {
             apps_sheet[app_var_cell].value: {
                 apps_sheet['B1'].value: apps_sheet[app_name_cell].value,
                 apps_sheet['C1'].value: apps_sheet[app_local_ver_cell].value,
-                apps_sheet['D1'].value: apps_sheet[app_link_cell].value,
-                apps_sheet['E1'].value: apps_sheet[app_ver_xpath_cell].value,
+                apps_sheet['D1'].value: apps_sheet[app_info_link_cell].value,
+                apps_sheet['E1'].value: apps_sheet[app_dl_link_cell].value,
+                apps_sheet['F1'].value: apps_sheet[app_ver_xpath_cell].value,
                 'row': str_row
             }
         }
@@ -66,9 +68,10 @@ def check_apps_version():
     for key in apps_dict:
         app_name = apps_dict[key]['app_name']
         app_row = apps_dict[key]['row']
-        app_link = apps_dict[key]['app_link']
+        app_info_link = apps_dict[key]['app_info_link']
+        app_dl_link = apps_dict[key]['app_dl_link']
         app_ver_xpath = apps_dict[key]['app_ver_xpath']
-        scrape_ver_list = scrape_app_version(app_link, app_ver_xpath)
+        scrape_ver_list = scrape_app_version(app_info_link, app_ver_xpath)
         if key == 'visual_c':
             app_ver = scrape_ver_list[0][1:]
         elif key == 'seven_zip':
@@ -138,7 +141,7 @@ def check_apps_version():
         # check if there is a new app version
         if app_ver != apps_dict[key]['app_local_version']:
             print("{} is outdated! There is a new version: {}".format(app_name, app_ver))
-            os.system("start \"\" {}".format(app_link))
+            os.system("start \"\" {}".format(app_dl_link))
 
             temp_dict = {
                 app_name: {
