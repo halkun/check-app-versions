@@ -130,7 +130,7 @@ def check_apps_version():
         elif key == 'g_play_music':
             app_ver = scrape_ver_list[0].split(' ')[-1]
         elif key == 'java':
-            app_ver = ' '.join(scrape_ver_list[0].split(' ')[1:])
+            app_ver = scrape_ver_list[3].split(' ')[2]
         else:
             print("Something went wrong...")
             break
