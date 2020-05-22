@@ -71,6 +71,7 @@ def check_apps_version():
         app_info_link = apps_dict[key]['app_info_link']
         app_dl_link = apps_dict[key]['app_dl_link']
         app_ver_xpath = apps_dict[key]['app_ver_xpath']
+        app_ver_saved = apps_dict[key]['app_local_version']
         scrape_ver_list = scrape_app_version(app_info_link, app_ver_xpath)
         if key == 'visual_c':
             app_ver = scrape_ver_list[0][1:]
@@ -97,9 +98,9 @@ def check_apps_version():
         elif key == 'exiftool':
             app_ver = scrape_ver_list[0].split(' ')[-1].split('-')[-1][0:-4]
         elif key == 'faststone':
-            app_ver = scrape_ver_list[-1].split(' ')[-2][0:3]
-        elif key == 'ffmpeg':
-            app_ver = scrape_ver_list[1].strip()
+            app_ver = scrape_ver_list[1].split(' ')[-2][0:3]
+        # elif key == 'ffmpeg':
+        #     app_ver = scrape_ver_list[1].strip()
         elif key == 'firefox':
             app_ver = scrape_ver_list[21].split(' ')[0]
         elif key == 'git':
@@ -139,8 +140,8 @@ def check_apps_version():
             break
 
         # check if there is a new app version
-        if app_ver != apps_dict[key]['app_local_version']:
-            print("{} is outdated! There is a new version: {}".format(app_name, app_ver))
+        if app_ver_saved != app_ver:
+            print("{} is outdated - OLD: {}, NEW: {}".format(app_name, app_ver_saved, app_ver))
             os.system("start \"\" {}".format(app_dl_link))
 
             temp_dict = {
@@ -152,7 +153,7 @@ def check_apps_version():
 
             new_ver_dict.update(temp_dict)
         else:
-            print("No update for {}...".format(app_name))
+            print("No update for {}".format(app_name))
 
     # only update excel file if there's a new app update
     if temp_dict:
