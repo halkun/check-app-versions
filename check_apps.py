@@ -6,13 +6,14 @@ import requests
 
 # extract raw version data with html xpath
 def scrape_app_version(app_info_link, ver_xpath):
-    my_headers = {"User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:75.0) Gecko/20100101 Firefox/75.0"}
+    my_headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:75.0) Gecko/20100101 Firefox/75.0"}
 
     page = requests.get(app_info_link, headers=my_headers)
     tree = lxml.html.fromstring(page.content)
     app_version = tree.xpath(ver_xpath)
 
     return app_version
+
 
 # import local apps database
 def load_apps_info():
@@ -46,6 +47,7 @@ def load_apps_info():
 
     return apps_data
 
+
 # save new info into database
 def update_apps_info(new_app_ver_dict):
     apps_wb = openpyxl.load_workbook('./apps_info.xlsx')
@@ -57,6 +59,7 @@ def update_apps_info(new_app_ver_dict):
         apps_sheet[app_ver_cell].value = new_app_ver_dict[app]['app_new_ver']
 
     apps_wb.save('apps_info.xlsx')
+
 
 # check apps for new updates
 def check_apps_version():
@@ -159,8 +162,10 @@ def check_apps_version():
     if temp_dict:
         update_apps_info(new_ver_dict)
 
+
 def main():
     check_apps_version()
+
 
 if __name__ == '__main__':
     main()
