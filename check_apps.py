@@ -105,7 +105,7 @@ def check_apps_version():
         # elif key == 'ffmpeg':
         #     app_ver = scrape_ver_list[1].strip()
         elif key == 'firefox':
-            app_ver = scrape_ver_list[21].split(' ')[0]
+            app_ver = scrape_ver_list[18].split(' ')[0]
         elif key == 'git':
             app_ver = scrape_ver_list[0]
         elif key == 'greenshot':
