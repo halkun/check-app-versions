@@ -105,7 +105,7 @@ def check_apps_version():
         # elif key == 'ffmpeg':
         #     app_ver = scrape_ver_list[1].strip()
         elif key == 'firefox':
-            app_ver = scrape_ver_list[18].split(' ')[0]
+            app_ver = scrape_ver_list[19].split(' ')[0]
         elif key == 'git':
             app_ver = scrape_ver_list[0]
         elif key == 'greenshot':
@@ -124,6 +124,8 @@ def check_apps_version():
             app_ver = scrape_ver_list[0].split(' ')[-1]
         elif key == 'open_shell':
             app_ver = scrape_ver_list[0]
+        elif key == 'spotify':
+            app_ver = scrape_ver_list[26].split(' ')[0]
         elif key == 'sublime_text':
             app_ver = scrape_ver_list[0].split(' ')[-1]
         elif key == 'visual_studio_code':
@@ -134,10 +136,8 @@ def check_apps_version():
             app_ver = scrape_ver_list[0].split(' ')[-1]
         elif key == 'rufus':
             app_ver = scrape_ver_list[0].split(' ')[1]
-        elif key == 'yt_music':
-            app_ver = scrape_ver_list[0][1:]
         elif key == 'java':
-            app_ver = scrape_ver_list[3].split(' ')[2]
+            app_ver = scrape_ver_list[2].split(' ')[2]
         else:
             print("Something went wrong...")
             break
