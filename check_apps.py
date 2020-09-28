@@ -102,8 +102,8 @@ def check_apps_version():
             app_ver = scrape_ver_list[0].split(' ')[-1].split('-')[-1][0:-4]
         elif key == 'faststone':
             app_ver = scrape_ver_list[1].split(' ')[-2][0:3]
-        # elif key == 'ffmpeg':
-        #     app_ver = scrape_ver_list[1].strip()
+        elif key == 'ffmpeg':
+            app_ver = scrape_ver_list[0][11:]
         elif key == 'firefox':
             app_ver = scrape_ver_list[18].split(' ')[0]
         elif key == 'git':
