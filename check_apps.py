@@ -89,7 +89,7 @@ def check_apps_version():
         elif key == 'crystaldiskinfo':
             app_ver = scrape_ver_list[0].split(' ')[2]
         elif key == 'crystaldiskmark':
-            app_ver = scrape_ver_list[0].split(' ')[3]
+            app_ver = scrape_ver_list[0].split(' ')[2]
         elif key == 'dropbox':
             app_ver = scrape_ver_list[7].split(' ')[0]
         elif key == 'equalizer_apo':
@@ -105,7 +105,7 @@ def check_apps_version():
         elif key == 'ffmpeg':
             app_ver = scrape_ver_list[0][11:]
         elif key == 'firefox':
-            app_ver = scrape_ver_list[18].split(' ')[0]
+            app_ver = scrape_ver_list[17].split(' ')[0]
         elif key == 'git':
             app_ver = scrape_ver_list[0]
         elif key == 'greenshot':
