@@ -85,7 +85,7 @@ def check_apps_version():
         elif key == 'calibre':
             app_ver = scrape_ver_list[1].split(' ')[1]
         elif key == 'cmder':
-            app_ver = scrape_ver_list[0][1:]
+            app_ver = scrape_ver_list[0]
         elif key == 'crystaldiskinfo':
             app_ver = scrape_ver_list[0].split(' ')[2]
         elif key == 'crystaldiskmark':
